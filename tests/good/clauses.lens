@@ -1,0 +1,7 @@
+stream (entry) when (entry.a entry.b, entry.c entry.d.foo) {
+    print(entry.message)
+}
+
+stream {
+    print(e.d.foo)
+}

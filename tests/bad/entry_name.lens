@@ -1,0 +1,4 @@
+stream(entry) when  (e.foo){
+    print(e.foo)
+}
+

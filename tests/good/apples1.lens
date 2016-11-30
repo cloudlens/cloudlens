@@ -1,0 +1,12 @@
+{
+    totalApples = 0;
+}
+
+match{
+    "(?<numApples>\d+) apples"
+}
+
+stream{
+    totalApples += parseInt(e.numApples);
+    if(totalApples > 10) print("We picked too many apples!");
+}

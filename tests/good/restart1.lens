@@ -1,0 +1,20 @@
+stream (e in log.a)  {
+       print(1)
+}
+
+stream {
+       print(e.message)
+}
+
+restart log.a
+
+stream (e in log.a)  {
+       print(2)
+}
+
+restart log
+
+stream {
+       print(e.message)
+}
+

@@ -1,0 +1,15 @@
+[
+{
+"hi":      "Bonjour",
+"message": "6 pommes",
+"foo":     {"a":3}
+},
+{
+"hi":      "Hello",
+"message": "2 apples",
+"foo":     {"a":{"b":5}}
+},
+{
+"test":42
+}
+]

@@ -1,0 +1,3 @@
+stream upon (hi){
+    print(e.hi)
+}

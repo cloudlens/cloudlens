@@ -1,0 +1,3 @@
+stream when (e.foo e.bar){
+    print(e.message)
+}

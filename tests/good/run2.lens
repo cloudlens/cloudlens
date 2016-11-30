@@ -1,0 +1,51 @@
+lens l1 (log) {
+     stream (entry in log.session) {
+         print("L1 " + entry.message)
+     }
+}
+
+lens l2 (log) {
+     stream (entry in log.session) {
+         print("L2 " + entry.message)
+     }
+}
+
+lens l3 (log) {
+     stream (entry in log.session) {
+         print("L3 " + entry.message)
+     }
+}
+
+lens l4 (log) {
+     stream (entry in log.session) {
+         print("L4 " + entry.message)
+     }
+}
+
+
+match {
+    "Session (?<date>\d\d-\d\d-\d\d\d\d)"   
+}
+
+group (entry) upon entry.date in session {
+    "^"
+}
+
+stream (entry in log.session) {
+    print("1 " + entry.message)
+}
+
+stream (entry in log.session) {
+    print("2 " + entry.message)
+}
+
+run l1()
+run l2()
+
+stream (entry in log.session) {
+    print("3 " + entry.message)
+}
+
+run l3()
+run l4()
+

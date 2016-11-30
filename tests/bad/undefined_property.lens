@@ -1,0 +1,20 @@
+var state = "green";
+
+group {
+    "^.*$"
+}
+
+match (e in log.group) {
+    "My color is (?<color>[^ ]+)!"
+}
+
+
+stream (e in log.group) {
+    if ((e.color=="blue" && state != "green" && state != undefined) ||
+        (e.color=="red" && state != "blue") ||
+        (e.color=="green" && state != "red")) {
+          print("error:" + state + "," + e.color)
+    };
+    state=e.color;
+    print(bogus_set[state]);
+}

@@ -1,0 +1,28 @@
+stream  {
+    print(1)
+}
+
+
+
+lens f(x, log){
+    var y = 10; 
+    stream  {
+     	print(x + y)
+     }
+}
+
+var g = f;
+
+var y = 40;
+
+stream  {
+    print(y + 2)
+}
+
+run g(3)
+
+{print("coucou")}
+
+stream  {
+    print(1)
+}

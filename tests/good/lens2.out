@@ -1,0 +1,15 @@
+LENS >>bar 11
+LENS >>bar 22
+LENS >>bar 33
+STREAM >> foo 1
+STREAM >> foo 2
+STREAM >> foo 3
+STREAM >> foo 4
+LENS >>foo 1
+LENS >>foo 2
+LENS >>foo 3
+LENS >>foo 4
+STREAM >> foo 1
+STREAM >> foo 2
+STREAM >> foo 3
+STREAM >> foo 4

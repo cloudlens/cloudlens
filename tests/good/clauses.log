@@ -1,0 +1,17 @@
+[
+{
+"a": 1,
+"b": 2,
+"message" : "first"
+},
+{
+"c": 3,
+"d": 4,
+"message" : "second"
+},
+{
+"c": 5,
+"d": {"foo": 6},
+"message" : "third"
+}
+]

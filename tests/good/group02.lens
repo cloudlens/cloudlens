@@ -1,0 +1,25 @@
+var cpt = 0;
+
+match {
+    "(?<n>\d+)#int"
+}
+
+stream (e) when (e) {
+    if (e.n % 2 === 0) {
+        e.even = "true";
+    }
+    print('Before group: e =', JSON.stringify(e));
+}
+
+group upon (e.even) {
+    "true"
+}
+
+stream (e) when (e) {
+    print('After group: e =', JSON.stringify(e));
+    cpt++;
+}
+
+{
+    print("cpt =", cpt)
+}

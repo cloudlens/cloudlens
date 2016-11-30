@@ -1,0 +1,22 @@
+var last = {};
+function sustain (e) {
+    for (prop in e) {
+	    if (typeof e[prop] !== undefined) {
+	        last[prop] = e[prop]
+	    }
+    }
+    return res;
+}
+
+match {
+    "^(?<name>[^ ]*) picked";
+    "(?<n>\d+)"
+}
+
+stream when (e.message){
+    sustain(e);
+}
+
+stream {
+    print(last.name + " picked " + e.n + " fruits");
+}

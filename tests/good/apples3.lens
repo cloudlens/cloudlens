@@ -1,0 +1,16 @@
+var totalApples = 0;
+
+match{
+    "(?<numApples>\d+) apples# numApples:int";
+    "^(?<name>[^ ]*)"
+}
+
+stream{
+    print(e.name);
+}
+
+stream{
+    totalApples += e.numApples;
+    if(totalApples > 10)
+        print("We picked too many apples: " + totalApples);
+}

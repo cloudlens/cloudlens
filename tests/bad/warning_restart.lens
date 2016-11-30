@@ -1,0 +1,18 @@
+stream (e in log.a) when (e) {
+       print(1)
+}
+
+stream {
+       print(e.message)
+}
+
+stream (e in log.a) when (e) {
+       print(2)
+}
+
+{}
+
+stream {
+       print(e.message)
+}
+

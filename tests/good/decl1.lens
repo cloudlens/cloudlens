@@ -1,0 +1,19 @@
+stream  {
+    print(1)
+}
+
+lens f(x, log){
+    var y = 10; 
+    stream  {
+     	print(x + y)
+     }
+}
+
+var y = 40;
+
+stream  {
+    print(y + 2)
+}
+
+run f(3)
+

@@ -1,0 +1,3 @@
+match(entry) upon (e.bar.foo){
+    "(?<bar>\d+)"
+}

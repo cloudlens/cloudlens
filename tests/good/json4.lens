@@ -1,0 +1,7 @@
+match upon (e.hi){
+    "(?<french>Bonjour)"
+}
+
+stream {
+    print(e.french)
+}

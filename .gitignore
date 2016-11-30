@@ -1,0 +1,11 @@
+/target/
+/incubator-zeppelin/
+/.metadata
+/src/cloudlens/parser/CloudLens.tokens
+/src/cloudlens/parser/CloudLensBaseVisitor.java
+/src/cloudlens/parser/CloudLensLexer.java
+/src/cloudlens/parser/CloudLensLexer.tokens
+/src/cloudlens/parser/CloudLensParser.java
+/src/cloudlens/parser/CloudLensVisitor.java
+.DS_Store
+*~

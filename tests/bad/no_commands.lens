@@ -1,0 +1,17 @@
+group {
+    "^\[.*$"
+}
+
+match {
+    "\[(?<tid>.*)\] .* [PUT] saving document:"
+}
+
+// Find the first tid with a POST and activation ID. Remember that tid and aid.
+stream {
+    if (!done) {
+    	mytid = tid;
+    	myaid = aid;
+    	done = true;
+    }
+}
+

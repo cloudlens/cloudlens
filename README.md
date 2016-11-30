@@ -1,2 +1,1 @@
-# CloudLens
-The CloudLens programming language
+# The CloudLens programming language

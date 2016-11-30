@@ -1,0 +1,14 @@
+[
+{ "hi":"Hello",
+  "message":"eeny meeny miny moe",
+  "foo":{"bar":42}
+},
+{ "hi":"Bonjour",
+  "message":"ams tram gram",
+  "foo":4012
+},
+{ "hi":"Ola",
+  "message":"pinto pinto gorgorito",
+  "foo" : "bar"
+}
+]

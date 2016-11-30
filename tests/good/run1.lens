@@ -1,0 +1,20 @@
+lens l1 (log) {
+     stream {
+         print("L1 " + e.message)
+     }
+}
+
+lens l2 (log) {
+     stream {
+         print("L2 " + e.message)
+     }
+}
+
+lens l3 (log) {
+     stream {
+         print("L3 " + e.message)
+     }
+}
+
+run l1()
+run l2()

@@ -1,0 +1,3 @@
+stream(entry) when (entry.foo.a.b) {
+    print(entry.hi)
+}

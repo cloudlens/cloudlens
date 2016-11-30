@@ -1,0 +1,4 @@
+Regular Expression Syntax Error: tests/bad/regexp_syntax_error.lens line 1
+Unclosed character class near index 27
+^(?<key>[^ ]+ [^ ]+ [^ ]+ [^
+                           ^

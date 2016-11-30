@@ -1,0 +1,9 @@
+stream {
+    print(e.message)
+}
+
+source ("local:tests/good/source.log2")
+
+stream {
+    print(e.message)
+}

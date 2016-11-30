@@ -1,0 +1,11 @@
+group upon (e.status){
+    "^Start"
+}
+
+stream {
+    print("----")
+}
+
+stream (e in log.group){
+    print("verses: " + e.message);
+}

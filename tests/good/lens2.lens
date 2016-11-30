@@ -1,0 +1,27 @@
+lens messageLens(ident){
+     stream (entry) when (entry) {
+     	    print(ident + entry.message);
+     }
+}
+
+{
+	array = [{"message" : "bar 11"},
+	      	 {"message" : "bar 22"},
+		 {"message" : "bar 33"}];
+}
+
+
+{ messageLens("LENS " + ">>", array); }
+
+stream (entry) {
+       var ident = "STREAM >> ";
+       print (ident + entry.message);
+}
+
+{ messageLens("LENS " + ">>");}
+
+stream (entry) {
+       var ident = "STREAM >> ";
+       print (ident + entry.message);
+}
+

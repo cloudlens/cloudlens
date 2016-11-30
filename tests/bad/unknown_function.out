@@ -1,0 +1,2 @@
+Error: tests/bad/unknown_function.lens, block starting line 1:
+<eval>:2 TypeError: unknown_function is not a function

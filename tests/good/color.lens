@@ -1,0 +1,18 @@
+{
+    state = undefined;
+}
+
+match{
+    "My color is (?<color>[^ ]+)!"
+}
+
+
+stream{
+    if ((e.color=="blue" && state != "green" && state != undefined) ||
+    	(e.color=="red" && state != "blue") ||
+    	(e.color=="green" && state != "red")) {
+    		print("error:" + state + "," + e.color);
+    }
+    
+    state=e.color;
+}

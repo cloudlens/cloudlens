@@ -1,0 +1,7 @@
+stream  {
+    match(e, "hi", /(Bonjour)/,  "french")
+}
+
+stream {
+    print(e.french)
+}

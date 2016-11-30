@@ -1,0 +1,21 @@
+[
+{
+"hi":      "Bonjour",
+"message": "6 pommes",
+"foo":     {"a":3}
+},
+{
+"hi":      "Hello",
+"message": "2 apples",
+"bar":     {"a":{"b":5}}
+},
+{
+"test":42
+},
+{
+"hi":      "Ola",
+"message": "4 manzana",
+"foo": 42,
+"bar":     {"a":{"b":5}}
+}
+]

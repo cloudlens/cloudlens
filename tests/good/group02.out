@@ -1,0 +1,11 @@
+Before group: e = {"message":"foo 1","n":"1"}
+Before group: e = {"message":"foo 1","n":"1"}
+Before group: e = {"message":"foo 3","n":"3"}
+Before group: e = {"message":"foo 3","n":"3"}
+Before group: e = {"message":"foo 5","n":"5"}
+Before group: e = {"message":"foo 5","n":"5"}
+Before group: e = {"message":"foo 7","n":"7"}
+Before group: e = {"message":"foo 7","n":"7"}
+Before group: e = {"message":"foo 9","n":"9"}
+Before group: e = {"message":"foo 9","n":"9"}
+cpt = 0
