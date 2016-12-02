@@ -18,6 +18,7 @@
 
 git clone https://github.com/apache/incubator-zeppelin.git -b branch-0.5.6
 cd incubator-zeppelin
+patch -N -p1 < ../karma.patch # workaround for zeppelin build failure on macOS
 mvn clean install -Drat.skip=true -DskipTests
 cd ..
 cp zeppelin-confs/zeppelin-site.xml incubator-zeppelin/conf/

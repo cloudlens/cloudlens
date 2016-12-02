@@ -1,0 +1,14 @@
+diff --git a/zeppelin-web/Gruntfile.js b/zeppelin-web/Gruntfile.js
+index 13612ea..3c73f6e 100644
+--- a/zeppelin-web/Gruntfile.js
++++ b/zeppelin-web/Gruntfile.js
+@@ -429,8 +429,7 @@ module.exports = function (grunt) {
+     'wiredep',
+     'concurrent:test',
+     'postcss',
+-    'connect:test',
+-    'karma'
++    'connect:test'
+   ]);
+ 
+   grunt.registerTask('build', [
