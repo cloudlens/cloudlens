@@ -65,10 +65,8 @@ public class PipelineStageGroup extends PipelineStage {
           if (processor.step(entry)) {
             // new entry
             final BlockObject current = nextOuputEntryAcc;
-            final BlockObject group = engine.newArray();
-            engine.push(group, entry);
             nextOuputEntryAcc = engine.newObject();
-            nextOuputEntryAcc.put(output, group);
+            engine.merge(nextOuputEntryAcc, entry, output);
             return current;
           }
         }
@@ -76,9 +74,7 @@ public class PipelineStageGroup extends PipelineStage {
         if (nextOuputEntryAcc != null) {
           // not before first entry that satisfies the predicate
           if (nextOuputEntryAcc.containsKey(output)) {
-            final BlockObject group = nextOuputEntryAcc.get(output);
-            engine.push(group, entry);
-            nextOuputEntryAcc.put(output, group);
+            engine.merge(nextOuputEntryAcc, entry, output);
           }
         }
         return null;
