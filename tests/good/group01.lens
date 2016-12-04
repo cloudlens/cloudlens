@@ -1,7 +1,7 @@
 var cpt = 0;
 
 match {
-    "(?<n>\d+)#int"
+    "(?<n>\d+)# n:int"
 }
 
 stream (e) when (e) {
