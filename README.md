@@ -1,6 +1,5 @@
 # The CloudLens programming language
 
-Outline:
 * [Installation](#installation)
 * [Use](#use)
   * [Table](#table-processing) 
