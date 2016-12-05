@@ -1,5 +1,20 @@
 # The CloudLens programming language
 
+Outline:
+* [Installation](#installation)
+* [Use](#use)
+  * [Table](#table-processing) 
+  * [Stream](#stream-processing)
+  * [Working with JSON Input Files](#working-with-json-input-files)
+* [Tutorial](#tutorial)
+  * [A CloudLens Script](#a-cloudlens-script)
+  * [State Variables](#state-variables)
+  * [Blocks and Multiple Traversals](#blocks-and-multiple-traversals)
+  * [Hierarchical structures and lenses](#hierarchical-structures-and-lenses)
+  * [Lens Execution](#lens-execution)
+* [Notebook Tutorial](#notebook-tutorial)
+  
+  
 # Installation
 
 CloudLens requires Apache Maven (tested with version 3.3.1 and above)
