@@ -13,7 +13,6 @@ Outline:
   * [Blocks and Multiple Traversals](#blocks-and-multiple-traversals)
   * [Hierarchical Structures and Lenses](#hierarchical-structures-and-lenses)
   * [Lens Execution](#lens-execution)
-* [Notebook Tutorial](#notebook-tutorial)
   
   
 # Installation
@@ -137,7 +136,12 @@ To terminate the web server, execute the following command in the `cloudlens` fo
 ```
 ./stop-notebook.sh
 ```
+To load a log file into the notebook, execute the following command:
+```
+source("file:///path/to/file.log")
+```
 
+Any of the CloudLens scripts below can be cut and pasted, and executed in the notebook.
 
 # Tutorial
 
@@ -447,21 +451,3 @@ FAILED: packages.UtilsTests
 For each entry, we execute first `testFailed` and then `testTime`.
 Compared to the previous example the results are interleaved.
 
-# Notebook Tutorial
-
-JSON:
-In a notebook type in a `block` section or a `%js` paragraph:
-
-```
-CL.json("file:///path/to/file.log")
-```
-
-where file.log contains a JSON array.
-
-It is also possible to load a JSON object and specify a path to an
-array inside this object.
-In a notebook:
-
-```
-CL.json("file:///path/to/file.log", "obj.field.array")
-```
