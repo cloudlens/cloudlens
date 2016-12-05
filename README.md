@@ -6,6 +6,7 @@ Outline:
   * [Table](#table-processing) 
   * [Stream](#stream-processing)
   * [Working with JSON Input Files](#working-with-json-input-files)
+  * [Zeppelin Notebook for CloudLens](#zeppelin-notebook-for-cloudlens)
 * [Tutorial](#tutorial)
   * [A CloudLens Script](#a-cloudlens-script)
   * [State Variables](#state-variables)
@@ -33,8 +34,6 @@ To build, execute the following command in the `cloudlens` folder.
 ```
 
 This operation may take a few minutes.
-
-
 
 There is no need to rebuild the notebook after each repository update.
 If you already have a working version of the notebook, to update
@@ -104,7 +103,7 @@ sequence.
 
 ## Working with JSON Input Files
 
-We added support to load and handle JSON objects in CloudLens. This makes it convenient to read logs
+CloudLens can handle JSON objects as input. This makes it convenient to read logs
 that have been stored in popular log processing systems.
 
 It is possible to load a JSON array instead of a file of row data.
@@ -121,6 +120,24 @@ array inside this object. On the Command Line:
 ```
 ./cloudlens -format json -jsonpath path.to.array -run file.lens -log file.log
 ```
+
+## Zeppelin Notebook for CloudLens
+
+CloudLens provides an extension of the Zeppelin notebook as its IDE.
+To start or restart the notebook, execute the following command in the `cloudlens` folder:
+
+```
+./start-notebook.sh
+```
+
+Connect to [http://localhost:8080](http://localhost:8080) in a web browser to use the notebook.
+
+To terminate the web server, execute the following command in the `cloudlens` folder:
+
+```
+./stop-notebook.sh
+```
+
 
 # Tutorial
 
