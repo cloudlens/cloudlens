@@ -1,4 +1,4 @@
-# The CloudLens programming language
+# The CloudLens Programming Language
 
 * [Installation](#installation)
 * [Use](#use)
