@@ -10,7 +10,7 @@ Outline:
   * [A CloudLens Script](#a-cloudlens-script)
   * [State Variables](#state-variables)
   * [Blocks and Multiple Traversals](#blocks-and-multiple-traversals)
-  * [Hierarchical structures and lenses](#hierarchical-structures-and-lenses)
+  * [Hierarchical Structures and Lenses](#hierarchical-structures-and-lenses)
   * [Lens Execution](#lens-execution)
 * [Notebook Tutorial](#notebook-tutorial)
   
@@ -303,7 +303,7 @@ To deactivate this warning, it is possible to rewind explicitly the stream by us
 `restart log` right after the block.
 It is also possible to use this instruction in the absence of a block.
 
-## Hierarchical structures and lenses
+## Hierarchical Structures and Lenses
 
 
 It is sometimes useful to structure entries hierarchically. For
