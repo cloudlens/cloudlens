@@ -119,6 +119,13 @@ array inside this object. On the Command Line:
 ./cloudlens -format json -jsonpath path.to.array -run file.lens -log file.log
 ```
 
+## Javascript Librairies
+
+On the command line, option `-js` loads a JavaScript file before executing the script.
+```
+./cloudlens -js file.js -run file.lens -log file.log.
+```
+
 ## Zeppelin Notebook for CloudLens
 
 CloudLens provides an extension of the Zeppelin notebook as its IDE.
@@ -140,7 +147,24 @@ To load a log file into the notebook, execute the following command:
 source("file:///path/to/file.log")
 ```
 
+It is also possible to load JSON arrays (in case the log is stored as JSON) with the `json` option. 
+```
+source(“file:///path/to/file.log”, json)
+```
+To specify a path to an array inside a JSON object:
+```
+source(“file:///path/to/file.log”, json, path.to.array)
+```
+
+To load JavaScript libraries in the notebook, use the function CL.loadjs inside a JavaScript block:
+```
+ { CL.loadjs("file:///js/file.js") }
+```
+
 Any of the CloudLens scripts below can be cut and pasted, and executed in the notebook.
+
+
+
 
 # Tutorial
 
