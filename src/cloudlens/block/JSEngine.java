@@ -126,6 +126,57 @@ public class JSEngine implements BlockEngine {
     return new JSObject(push(array.internalObject(), entry.internalObject()));
   }
 
+  private CompiledBlock merge;
+
+  @SuppressWarnings("restriction")
+  private Object merge(Object acc, Object entry, String groupLbl) {
+    if (merge == null) {
+      merge = compile("(function (acc, e, groupLbl) {"
+          + "    function mergeBoolean(b1, b2) {" + "        return b1 || b2;"
+          + "    }" + " " + "    function mergeNumber(n1, n2) {"
+          + "        return n2;" + "    }" + " "
+          + "    function mergeString(s1, s2) {"
+          + "        return s1.concat('\\n', s2);" + "    }" + " "
+          + "    function mergeArray(a1, a2) {"
+          + "        return a1.concat(a2);" + "    }" + " "
+          + "    function mergeObject (acc, e) {"
+          + "        for (var property in e) {"
+          + "            if (!e.hasOwnProperty(property)) {"
+          + "                break;" + "            }"
+          + "            if (acc[property] === undefined) {"
+          + "                acc[property] = e[property];"
+          + "            } else if (typeof acc[property] !== typeof e[property]) {"
+          + "                acc[property] = e[property];"
+          + "            } else if (typeof e[property] === 'boolean') {"
+          + "                acc[property] = mergeBoolean(acc[property], e[property]);"
+          + "            } else if (typeof e[property] === 'number') {"
+          + "                acc[property] = mergeNumber(acc[property], e[property]);"
+          + "            } else if (typeof e[property] === 'string') {"
+          + "                acc[property] = mergeString(acc[property], e[property]);"
+          + "            } else if (Array.isArray(e[property])) {"
+          + "                acc[property] = mergeArray(acc[property], e[property]);"
+          + "            } else if (typeof e[property] === 'object') {"
+          + "                mergeObject(acc[property], e[property]);"
+          + "            } else {"
+          + "                acc[property] = e[property];" + "            }"
+          + "        }" + "    }" + " " + "    if (groupLbl === undefined) {"
+          + "        groupLbl = 'group';" + "    }"
+          + "    if (acc[groupLbl] === undefined) {"
+          + "        acc[groupLbl] = [];" + "    }" + "    mergeObject(acc, e);"
+          + "    acc[groupLbl].push(e);" + "})");
+    }
+
+    return ((jdk.nashorn.api.scripting.JSObject) merge.eval()).call(null, acc,
+        entry, groupLbl);
+  }
+
+  @Override
+  public BlockObject merge(BlockObject acc, BlockObject entry,
+      String groupLbl) {
+    return new JSObject(
+        merge(acc.internalObject(), entry.internalObject(), groupLbl));
+  }
+
   @Override
   public String typeof(Object obj) {
     return eval("typeof " + obj).toString();

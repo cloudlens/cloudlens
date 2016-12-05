@@ -48,6 +48,8 @@ public interface BlockEngine {
 
   String typeof(Object obj);
 
+  BlockObject merge(BlockObject acc, BlockObject entry, String groupLbl);
+
   BlockObject eval(String script);
 
   BlockObject eval(InputStreamReader script);

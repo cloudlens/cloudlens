@@ -1,0 +1,27 @@
+diff --git a/zeppelin-web/Gruntfile.js b/zeppelin-web/Gruntfile.js
+index 13612ea..3c73f6e 100644
+--- a/zeppelin-web/Gruntfile.js
++++ b/zeppelin-web/Gruntfile.js
+@@ -429,8 +429,7 @@ module.exports = function (grunt) {
+     'wiredep',
+     'concurrent:test',
+     'postcss',
+-    'connect:test',
+-    'karma'
++    'connect:test'
+   ]);
+ 
+   grunt.registerTask('build', [
+diff --git a/zeppelin-web/bower.json b/zeppelin-web/bower.json
+index 4d68ff1..ba7be46 100644
+--- a/zeppelin-web/bower.json
++++ b/zeppelin-web/bower.json
+@@ -26,7 +26,7 @@
+     "angular-xeditable": "0.1.8",
+     "highlightjs": "~8.4.0",
+     "lodash": "~3.9.3",
+-    "angular-filter": "~0.5.4",
++    "angular-filter": "0.5.11",
+     "ngtoast": "~1.5.5",
+     "ng-focus-if": "~1.0.2",
+     "bootstrap3-dialog": "bootstrap-dialog#~1.34.7",
