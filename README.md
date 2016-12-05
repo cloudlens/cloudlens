@@ -87,6 +87,26 @@ multiple lens files:
 Log files are concatenated, and lens files are loaded in
 sequence.
 
+## Working with JSON Input Files
+
+We added support to load and handle JSON objects in CloudLens. This makes it convenient to read logs
+that have been stored in popular log processing systems.
+
+It is possible to load a JSON array instead of a file of row data.
+Each element of the array become one log entry.
+To load a JSON array, on the Command Line:
+
+```
+./cloudlens -format json -run file.lens -log file.json
+```
+
+It is also possible to load a JSON object and specify a path to an
+array inside this object. On the Command Line:
+
+```
+./cloudlens -format json -jsonpath path.to.array -run file.lens -log file.log
+```
+
 # Tutorial
 
 CloudLens is a *streaming* programming language. Programs are executed on streams of JSON object constructed from an input file.
@@ -394,3 +414,22 @@ FAILED: packages.UtilsTests
 ```
 For each entry, we execute first `testFailed` and then `testTime`.
 Compared to the previous example the results are interleaved.
+
+# Notebook Tutorial
+
+JSON:
+In a notebook type in a `block` section or a `%js` paragraph:
+
+```
+CL.json("file:///path/to/file.log")
+```
+
+where file.log contains a JSON array.
+
+It is also possible to load a JSON object and specify a path to an
+array inside this object.
+In a notebook:
+
+```
+CL.json("file:///path/to/file.log", "obj.field.array")
+```
