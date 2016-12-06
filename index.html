@@ -20,9 +20,7 @@
 
     <section class="main-content">
       <h1>
-<a id="the-cloudlens-programming-language" class="anchor" href="#the-cloudlens-programming-language" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The CloudLens programming language</h1>
-
-<p>Outline:</p>
+<a id="the-cloudlens-programming-language" class="anchor" href="#the-cloudlens-programming-language" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The CloudLens Programming Language</h1>
 
 <ul>
 <li><a href="#installation">Installation</a></li>
@@ -152,6 +150,14 @@ array inside this object. On the Command Line:</p>
 </code></pre>
 
 <h2>
+<a id="javascript-librairies" class="anchor" href="#javascript-librairies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Javascript Librairies</h2>
+
+<p>On the command line, option <code>-js</code> loads a JavaScript file before executing the script.</p>
+
+<pre><code>./cloudlens -js file.js -run file.lens -log file.log.
+</code></pre>
+
+<h2>
 <a id="zeppelin-notebook-for-cloudlens" class="anchor" href="#zeppelin-notebook-for-cloudlens" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Zeppelin Notebook for CloudLens</h2>
 
 <p>CloudLens provides an extension of the Zeppelin notebook as its IDE.
@@ -170,6 +176,21 @@ To start or restart the notebook, execute the following command in the <code>clo
 <p>To load a log file into the notebook, execute the following command:</p>
 
 <pre><code>source("file:///path/to/file.log")
+</code></pre>
+
+<p>It is also possible to load JSON arrays (in case the log is stored as JSON) with the <code>json</code> option. </p>
+
+<pre><code>source(“file:///path/to/file.log”, json)
+</code></pre>
+
+<p>To specify a path to an array inside a JSON object:</p>
+
+<pre><code>source(“file:///path/to/file.log”, json, path.to.array)
+</code></pre>
+
+<p>To load JavaScript libraries in the notebook, use the function CL.loadjs inside a JavaScript block:</p>
+
+<pre><code> { CL.loadjs("file:///js/file.js") }
 </code></pre>
 
 <p>Any of the CloudLens scripts below can be cut and pasted, and executed in the notebook.</p>
