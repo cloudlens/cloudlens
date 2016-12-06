@@ -1,25 +1,25 @@
 lens f(x, log){
     stream {
-    	print(x + e.message)
+    	print(x + entry.message)
     }
     {print("middle")}
     stream {
-     	print(x + e.message)
+     	print(x + entry.message)
     }
 }
 
 stream {
-    print("0 " + e.message)
+    print("0 " + entry.message)
 }
 
 run f ("1 ")
 
 stream {
-    print("2 " + e.message)
+    print("2 " + entry.message)
 }
 
 run f ("3 ")
 
 stream {
-    print("4 " + e.message)
+    print("4 " + entry.message)
 }

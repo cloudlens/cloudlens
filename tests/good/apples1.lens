@@ -7,6 +7,6 @@ match{
 }
 
 stream{
-    totalApples += parseInt(e.numApples);
+    totalApples += parseInt(entry.numApples);
     if(totalApples > 10) print("We picked too many apples!");
 }

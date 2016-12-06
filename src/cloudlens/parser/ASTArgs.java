@@ -23,7 +23,7 @@ public class ASTArgs {
   public String domain;
 
   public ASTArgs(String var, String domain) {
-    this.var = (var != null) ? var : "e";
+    this.var = (var != null) ? var : "entry";
     this.domain = (domain != null) ? domain : "log";
   }
 

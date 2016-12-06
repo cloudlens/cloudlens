@@ -1,8 +1,8 @@
 var last = {};
-function sustain (e) {
-    for (prop in e) {
-	    if (typeof e[prop] !== undefined) {
-	        last[prop] = e[prop]
+function sustain (entry) {
+    for (prop in entry) {
+	    if (typeof entry[prop] !== undefined) {
+	        last[prop] = entry[prop]
 	    }
     }
     return res;
@@ -13,10 +13,10 @@ match {
     "(?<n>\d+)"
 }
 
-stream when (e.message){
-    sustain(e);
+stream when (entry.message){
+    sustain(entry);
 }
 
 stream {
-    print(last.name + " picked " + e.n + " fruits");
+    print(last.name + " picked " + entry.n + " fruits");
 }

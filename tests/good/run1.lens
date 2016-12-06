@@ -1,18 +1,18 @@
 lens l1 (log) {
      stream {
-         print("L1 " + e.message)
+         print("L1 " + entry.message)
      }
 }
 
 lens l2 (log) {
      stream {
-         print("L2 " + e.message)
+         print("L2 " + entry.message)
      }
 }
 
 lens l3 (log) {
      stream {
-         print("L3 " + e.message)
+         print("L3 " + entry.message)
      }
 }
 

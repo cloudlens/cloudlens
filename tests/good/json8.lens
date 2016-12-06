@@ -1,7 +1,7 @@
 stream  {
-    match(e, "hi", /(Bonjour)/,  "french")
+    match(entry, "hi", /(Bonjour)/,  "french")
 }
 
 stream {
-    print(e.french)
+    print(entry.french)
 }

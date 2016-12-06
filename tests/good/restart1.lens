@@ -3,7 +3,7 @@ stream (e in log.a)  {
 }
 
 stream {
-       print(e.message)
+       print(entry.message)
 }
 
 restart log.a
@@ -15,6 +15,6 @@ stream (e in log.a)  {
 restart log
 
 stream {
-       print(e.message)
+       print(entry.message)
 }
 

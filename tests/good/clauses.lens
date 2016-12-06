@@ -3,5 +3,5 @@ stream (entry) when (entry.a entry.b, entry.c entry.d.foo) {
 }
 
 stream {
-    print(e.d.foo)
+    print(entry.d.foo)
 }

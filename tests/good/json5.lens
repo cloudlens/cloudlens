@@ -1,10 +1,10 @@
 { print("init"); }
 
-match upon (e.hi){
+match upon (entry.hi){
     "(?<french>Bonjour)"
 }
 
-stream{ print(e.message); }
+stream{ print(entry.message); }
 
 stream( entry )  when  ( entry.foo.a.b ) {
     entry.foo.a.c = "4012";
@@ -14,11 +14,11 @@ stream( entry )  when  ( entry.foo.a.b ) {
 { print("reset"); }
 
 stream {
-    print(e.foo.a.c)
+    print(entry.foo.a.c)
 }
 
-stream when (e.french){
-    print("'" + e.message + "' is in french.")
+stream when (entry.french){
+    print("'" + entry.message + "' is in french.")
 }
 
 { print("post"); }

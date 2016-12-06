@@ -1,7 +1,7 @@
-match upon (e.hi){
+match upon (entry.hi){
     "(?<french>Bonjour)"
 }
 
 stream {
-    print(e.french)
+    print(entry.french)
 }

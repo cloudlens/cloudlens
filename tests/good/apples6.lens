@@ -7,18 +7,18 @@ match {
 }
 
 stream {
-    print(e.name);
+    print(entry.name);
 }
 
 stream {
-    totalApples += e.numApples || 0;
+    totalApples += entry.numApples || 0;
     if(totalApples > 10 && !warning) {
       	warning = true;
-    	e.activate = true;
+    	entry.activate = true;
     }
 }
 
-stream when (e.activate){
+stream when (entry.activate){
     print("We picked too many apples: " + totalApples);
 }
 

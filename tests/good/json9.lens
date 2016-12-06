@@ -1,4 +1,4 @@
-group upon (e.status){
+group upon (entry.status){
     "^Start"
 }
 
@@ -6,6 +6,6 @@ stream {
     print("----")
 }
 
-stream (e in log.group){
-    print("verses: " + e.message);
+stream (entry in log.group){
+    print("verses: " + entry.message);
 }

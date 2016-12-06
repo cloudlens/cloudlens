@@ -3,7 +3,7 @@ stream (e in log.a) when (e) {
 }
 
 stream {
-       print(e.message)
+       print(entry.message)
 }
 
 stream (e in log.a) when (e) {
@@ -13,6 +13,6 @@ stream (e in log.a) when (e) {
 {}
 
 stream {
-       print(e.message)
+       print(entry.message)
 }
 

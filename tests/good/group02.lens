@@ -4,19 +4,19 @@ match {
     "(?<n>\d+)#int"
 }
 
-stream (e) when (e) {
-    if (e.n % 2 === 0) {
-        e.even = "true";
+stream when (entry) {
+    if (entry.n % 2 === 0) {
+        entry.even = "true";
     }
-    print('Before group: e =', JSON.stringify(e));
+    print('Before group: e =', JSON.stringify(entry));
 }
 
-group upon (e.even) {
+group upon (entry.even) {
     "true"
 }
 
-stream (e) when (e) {
-    print('After group: e =', JSON.stringify(e));
+stream when (entry) {
+    print('After group: e =', JSON.stringify(entry));
     cpt++;
 }
 

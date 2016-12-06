@@ -6,11 +6,11 @@ match{
 }
 
 stream{
-    print(e.name);
+    print(entry.name);
 }
 
 stream{
-    totalApples += e.numApples;
+    totalApples += entry.numApples;
     if(totalApples > 10)
         print("We picked too many apples: " + totalApples);
 }

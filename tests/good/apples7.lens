@@ -7,7 +7,7 @@ match(entry) upon (entry.hi){
 }
 
 stream{
-    print(e.message)
+    print(entry.message)
 }
 
 stream(entry) when (entry.foo.a.b){
@@ -20,11 +20,11 @@ stream(entry) when (entry.foo.a.b){
 }
 
 stream{
-    print(e.message)
+    print(entry.message)
 }
 
-stream when (e.french){
-    print("'" + e.message + "' is in french.")
+stream when (entry.french){
+    print("'" + entry.message + "' is in french.")
 }
 
 {

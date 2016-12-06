@@ -8,11 +8,11 @@ match{
 
 
 stream{
-    if ((e.color=="blue" && state != "green" && state != undefined) ||
-    	(e.color=="red" && state != "blue") ||
-    	(e.color=="green" && state != "red")) {
-    		print("error:" + state + "," + e.color);
+    if ((entry.color=="blue" && state != "green" && state != undefined) ||
+    	(entry.color=="red" && state != "blue") ||
+    	(entry.color=="green" && state != "red")) {
+    		print("error:" + state + "," + entry.color);
     }
     
-    state=e.color;
+    state=entry.color;
 }
