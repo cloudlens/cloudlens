@@ -4,12 +4,12 @@ group {
     "^.*$"
 }
 
-match (e in log.group) {
+match (e in log.array) {
     "My color is (?<color>[^ ]+)!"
 }
 
 
-stream (e in log.group) {
+stream (e in log.array) {
     if ((e.color=="blue" && state != "green" && state != undefined) ||
         (e.color=="red" && state != "blue") ||
         (e.color=="green" && state != "red")) {

@@ -36,7 +36,7 @@ public class ASTGroup extends ASTStreamingSection {
       String output, List<String> rules) {
     super(file, line, ASTType.Group, args);
 
-    this.output = (output != null) ? output : "group";
+    this.output = (output != null) ? output : "array";
     this.rules = rules;
     this.patterns = new ArrayList<>();
     if (upon == null) {

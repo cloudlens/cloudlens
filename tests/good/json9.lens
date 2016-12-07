@@ -6,6 +6,6 @@ stream {
     print("----")
 }
 
-stream (entry in log.group){
+stream (entry in log.array){
     print("verses: " + entry.message);
 }
