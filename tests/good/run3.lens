@@ -12,13 +12,13 @@ stream {
     print("0 " + entry.message)
 }
 
-run f ("1 ")
+f ("1 ")
 
 stream {
     print("2 " + entry.message)
 }
 
-run f ("3 ")
+f ("3 ")
 
 stream {
     print("4 " + entry.message)

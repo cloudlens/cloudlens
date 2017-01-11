@@ -16,5 +16,5 @@ lens l3 (log) {
      }
 }
 
-run l1()
-run l2()
+l1()
+l2()

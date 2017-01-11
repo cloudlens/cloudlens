@@ -39,13 +39,13 @@ stream (entry in log.session) {
     print("2 " + entry.message)
 }
 
-run l1()
-run l2()
+l1()
+l2()
 
 stream (entry in log.session) {
     print("3 " + entry.message)
 }
 
-run l3()
-run l4()
+l3()
+l4()
 

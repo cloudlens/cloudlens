@@ -15,5 +15,5 @@ stream  {
     print(y + 2)
 }
 
-run f(3)
+f(3)
 

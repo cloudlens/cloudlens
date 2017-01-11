@@ -19,7 +19,7 @@ stream  {
     print(y + 2)
 }
 
-run g(3)
+g(3)
 
 {print("coucou")}
 
