@@ -25,7 +25,7 @@ import cloudlens.block.BlockObject;
 import cloudlens.parser.ASTStream;
 
 // a wrapper around the Script class to keep track of variable dependencies
-public class PipelineStepStream implements PipelineStep {
+public class PipelineStepStream extends PipelineStep {
   public CLElement stream;
   public ASTStream ast;
 
@@ -35,9 +35,10 @@ public class PipelineStepStream implements PipelineStep {
   }
 
   @Override
-  public boolean step(BlockObject entry) {
+  public BlockObject step(BlockObject entry) {
     // do not execute if no update to the variables occurring in this script
     boolean go = false;
+    BlockObject current = entry;
     for (final Collection<String> clause : ast.clauses) {
       boolean goClause = !clause.isEmpty();
       for (final String variable : clause) {
@@ -52,15 +53,17 @@ public class PipelineStepStream implements PipelineStep {
       }
     }
     if (!go) {
-      return false;
+      executed = false;
+      return current;
     }
 
     try {
-      stream.closure.call(entry);
+      current = stream.closure.call(entry);
     } catch (final BlockException e) {
       throw new CLException("Error: " + ast.file + ", block starting line "
           + ast.line + ":\n" + e.getMessage());
     }
-    return true;
+    executed = true;
+    return current;
   }
 }

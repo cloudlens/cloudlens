@@ -72,8 +72,11 @@ public class ASTStream extends ASTStreamingSection {
 
     this.clauses = conditions;
 
+    final String streamScript = " function (" + var + "){" + script
+        + "; return " + var + "}";
+
     try {
-      JSEngine.checkSyntax(file, line, script);
+      JSEngine.checkSyntax(file, line, streamScript);
     } catch (final BlockException e) {
       throw new CLException(e.getMessage());
     }

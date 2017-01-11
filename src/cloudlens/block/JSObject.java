@@ -35,6 +35,13 @@ public class JSObject implements BlockObject {
     return nashornObject;
   }
 
+  @SuppressWarnings("restriction")
+  @Override
+  public boolean isUndefined() {
+    return (jdk.nashorn.api.scripting.ScriptObjectMirror
+        .isUndefined(nashornObject));
+  }
+
   @Override
   public boolean isMap() {
     return (nashornObject instanceof Map);

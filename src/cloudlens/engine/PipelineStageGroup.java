@@ -62,7 +62,8 @@ public class PipelineStageGroup extends PipelineStage {
           return current;
         }
         for (final PipelineStep processor : processors) {
-          if (processor.step(entry)) {
+          entry = processor.step(entry);
+          if (processor.executed) {
             // new entry
             final BlockObject current = nextOuputEntryAcc;
             nextOuputEntryAcc = engine.newObject();

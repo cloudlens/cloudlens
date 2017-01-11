@@ -20,6 +20,8 @@ package cloudlens.engine;
 
 import cloudlens.block.BlockObject;
 
-public interface PipelineStep {
-  public boolean step(BlockObject entry);
+public abstract class PipelineStep {
+  public boolean executed;
+
+  public abstract BlockObject step(BlockObject entry);
 }

@@ -95,13 +95,13 @@ public class CLBuilder {
         break;
       case Block:
         final ASTBlock blockSec = (ASTBlock) e;
-        code += " function () { (function(){" + blockSec.script
-            + "})(); return [";
+        code += " function () {" + blockSec.script + "; return [";
         closing = "]}" + closing;
         break;
       case Stream:
         final ASTStream streamSec = (ASTStream) e;
-        code += " function (" + streamSec.var + "){" + streamSec.script + "},";
+        code += " function (" + streamSec.var + "){" + streamSec.script
+            + "return " + streamSec.var + "},";
         break;
       case Match:
         final ASTMatch match = (ASTMatch) e;

@@ -30,7 +30,7 @@ import java.util.regex.PatternSyntaxException;
 import cloudlens.block.BlockObject;
 
 // a wrapper around the Pattern class to keep track of property names and types
-public class PipelineStepPattern implements PipelineStep {
+public class PipelineStepPattern extends PipelineStep {
   private final String file;
   private final int line;
   private final String upon;
@@ -79,17 +79,19 @@ public class PipelineStepPattern implements PipelineStep {
 
   // match the input against the pattern and define properties found in pattern
   @Override
-  public boolean step(BlockObject properties) {
+  public BlockObject step(BlockObject properties) {
     final String[] varpath = this.upon.split("\\.");
     final String text = properties.getpath(varpath, 1).asString();
 
     if (text == null) {
-      return false;
+      executed = false;
+      return properties;
     }
     try {
       final Matcher m = matcher.reset(text);
       if (!m.find()) {
-        return false;
+        executed = false;
+        return properties;
       }
       for (final Map.Entry<String, String> p : env) {
         final String value = m.group(p.getKey());
@@ -119,7 +121,8 @@ public class PipelineStepPattern implements PipelineStep {
           properties.put(p.getKey(), v);
         }
       }
-      return true;
+      executed = true;
+      return properties;
     } catch (final IllegalArgumentException e) {
       throw new CLException("Regular Expression Syntax Error: " + file
           + " line " + line + "\n" + e.getMessage());

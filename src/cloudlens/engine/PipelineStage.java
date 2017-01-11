@@ -33,10 +33,16 @@ public abstract class PipelineStage extends Pipeline {
   }
 
   private BlockObject apply(BlockObject entry) {
+    BlockObject current = entry;
     for (final PipelineStep processor : processors) {
-      executed |= processor.step(entry);
+      if (current.isUndefined()) {
+        break;
+      } else {
+        executed |= processor.executed;
+        current = processor.step(current);
+      }
     }
-    return entry;
+    return current;
   }
 
   @Override

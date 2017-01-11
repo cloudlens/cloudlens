@@ -27,6 +27,8 @@ public interface BlockObject {
 
   public Object internalObject();
 
+  public boolean isUndefined();
+
   public boolean isMap();
 
   public Map<String, Object> asMap();
