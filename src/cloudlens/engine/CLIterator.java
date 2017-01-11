@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -38,6 +39,13 @@ public class CLIterator implements Iterator<BlockObject> {
   public ArrayList<BlockObject> history;
   private Iterator<BlockObject> it;
   private ArrayList<BlockObject> mem;
+
+  public CLIterator() {
+    this.it = Collections.emptyIterator();
+    this.mem = new ArrayList<>();
+    this.history = new ArrayList<>();
+    this.withHistory = false;
+  }
 
   public CLIterator(BlockEngine engine, Iterator<BlockObject> it,
       boolean withHistory) {
@@ -78,7 +86,7 @@ public class CLIterator implements Iterator<BlockObject> {
   }
 
   private void restart() {
-    it = new ArrayList<BlockObject>(mem).iterator();
+    it = new ArrayList<>(mem).iterator();
     history = mem;
     mem = new ArrayList<>();
   }

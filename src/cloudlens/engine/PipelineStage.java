@@ -26,6 +26,7 @@ import cloudlens.block.BlockObject;
 
 public abstract class PipelineStage extends Pipeline {
   public final List<PipelineStep> processors;
+  private CLIterator localIt = new CLIterator();
 
   public PipelineStage(String stream, List<PipelineStep> processors) {
     super(stream);
@@ -50,13 +51,22 @@ public abstract class PipelineStage extends Pipeline {
     final CLIterator res = new CLIterator(engine, new Iterator<BlockObject>() {
       @Override
       public boolean hasNext() {
-        return clIt.hasNext();
+        return localIt.hasNext() || clIt.hasNext();
       }
 
       @Override
       public BlockObject next() {
-        final BlockObject current = apply(clIt.next());
-        return current;
+        if (localIt.hasNext()) {
+          return localIt.next();
+        } else {
+          final BlockObject current = apply(clIt.next());
+          if (!engine.isArray(current)) {
+            return current;
+          } else {
+            localIt = new CLIterator(engine, current, false);
+            return localIt.next();
+          }
+        }
       }
     }, false);
     return res;
