@@ -52,7 +52,7 @@ lens returns [ASTLens ast]
 	;
 	
 run returns [ASTRun ast]
-	: 'run' IDENT argList
+	: IDENT argList
 	;
 	
 restart returns [ASTRestart ast]
