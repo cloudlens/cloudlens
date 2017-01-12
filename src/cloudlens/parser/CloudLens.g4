@@ -36,7 +36,8 @@ block returns [ASTBlock ast]
 	;
 		
 stream returns [ASTStream ast]
-	: 'stream' args conditions body	
+	: 'process' args conditions body
+	| conditions body	
 	;
 
 group returns [ASTGroup ast]

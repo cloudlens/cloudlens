@@ -101,7 +101,7 @@ public class CLBuilder {
       case Stream:
         final ASTStream streamSec = (ASTStream) e;
         code += " function (" + streamSec.var + "){" + streamSec.script
-            + "return " + streamSec.var + "},";
+            + "; return " + streamSec.var + "},";
         break;
       case Match:
         final ASTMatch match = (ASTMatch) e;

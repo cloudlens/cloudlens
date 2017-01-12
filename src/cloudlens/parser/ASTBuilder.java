@@ -166,8 +166,10 @@ public class ASTBuilder extends CloudLensBaseVisitor<Void> {
   public Void visitStream(CloudLensParser.StreamContext ctx) {
     visitChildren(ctx);
     final int line = ctx.getStart().getLine();
-    ctx.ast = new ASTStream(fileName, line, ctx.args().ast,
-        ctx.conditions().ast, ctx.body().ast);
+    final ASTArgs args = (ctx.args() != null) ? ctx.args().ast
+        : new ASTArgs(null, null);
+    ctx.ast = new ASTStream(fileName, line, args, ctx.conditions().ast,
+        ctx.body().ast);
     return null;
   }
 
