@@ -26,6 +26,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 
 import cloudlens.block.BlockObject;
+import cloudlens.parser.ASTAfter;
 import cloudlens.parser.ASTBlock;
 import cloudlens.parser.ASTDeclaration;
 import cloudlens.parser.ASTElement;
@@ -100,8 +101,11 @@ public class CLBuilder {
         break;
       case Stream:
         final ASTStream streamSec = (ASTStream) e;
-        code += " function (" + streamSec.var + "){" + streamSec.script
-            + "; return " + streamSec.var + "},";
+        code += streamSec.script + ",";
+        break;
+      case After:
+        final ASTAfter afterSec = (ASTAfter) e;
+        code += afterSec.script + ",";
         break;
       case Match:
         final ASTMatch match = (ASTMatch) e;
@@ -159,6 +163,7 @@ public class CLBuilder {
         spawn(dbl, astTail);
         break;
       case Stream:
+      case After:
       case Run:
       case Group:
       case Match:
@@ -183,6 +188,7 @@ public class CLBuilder {
         blockGuard = true;
         break;
       case Stream:
+      case After:
       case Match:
       case Group:
       case Restart:
@@ -220,6 +226,7 @@ public class CLBuilder {
       switch (child.ast.type) {
       case Block:
       case Stream:
+      case After:
       case Group:
       case Match:
       case Restart:
@@ -292,6 +299,12 @@ public class CLBuilder {
         final ASTStream s = child.stream();
         checkStream(cl, s.file, s.line, s.stream);
         pipeline.add(stream);
+        break;
+      case After:
+        final PipelineStage after = new PipelineStageAfter(child);
+        final ASTAfter a = child.after();
+        checkStream(cl, a.file, a.line, a.stream);
+        pipeline.add(after);
         break;
       case Group:
         final PipelineStage group = new PipelineStageGroup(child);

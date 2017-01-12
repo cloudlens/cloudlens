@@ -81,6 +81,6 @@ public class ASTStream extends ASTStreamingSection {
       throw new CLException(e.getMessage());
     }
 
-    this.script = script;
+    this.script = streamScript;
   }
 }

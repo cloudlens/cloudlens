@@ -17,7 +17,8 @@ script returns [List<ASTElement> ast]
 element returns [ASTElement ast]
 	: declaration
 	| block 
-	| stream 
+	| stream
+	| after
 	| group  
 	| match  
 	| lens
@@ -39,6 +40,11 @@ stream returns [ASTStream ast]
 	: 'process' args conditions body
 	| conditions body	
 	;
+
+after returns [ASTAfter ast]
+	: 'after' args body	
+	;
+
 
 group returns [ASTGroup ast]
 	: 'group' args upon output rules 

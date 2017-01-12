@@ -63,7 +63,7 @@ public abstract class PipelineStage extends Pipeline {
           if (!engine.isArray(current)) {
             return current;
           } else {
-            localIt = new CLIterator(engine, current, false);
+            localIt = new CLIterator(engine, current, clIt.withHistory);
             return localIt.next();
           }
         }

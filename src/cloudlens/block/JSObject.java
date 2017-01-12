@@ -238,7 +238,6 @@ public class JSObject implements BlockObject {
 
   @Override
   public Iterator<BlockObject> asList() {
-
     return new Iterator<BlockObject>() {
       int i = 0;
 

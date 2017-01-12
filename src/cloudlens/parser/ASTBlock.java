@@ -28,14 +28,12 @@ public class ASTBlock extends ASTElement {
   public ASTBlock(String file, int line, String script) {
     super(file, line, ASTType.Block);
 
-    final String blockScript = "(function(){" + script + "})()";
-
     try {
-      JSEngine.checkSyntax(file, line, blockScript);
+      JSEngine.checkSyntax(file, line, script);
     } catch (final BlockException e) {
       throw new CLException(e.getMessage());
     }
 
-    this.script = blockScript;
+    this.script = script;
   }
 }

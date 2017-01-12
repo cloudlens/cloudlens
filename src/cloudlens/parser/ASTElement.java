@@ -20,7 +20,7 @@ package cloudlens.parser;
 
 public abstract class ASTElement {
   public enum ASTType {
-    Declaration, Block, Stream, Match, Group, Run, Lens, Restart, Source
+    Declaration, Block, Stream, After, Match, Group, Run, Lens, Restart, Source
   }
 
   public String file;

@@ -138,6 +138,8 @@ public class ASTBuilder extends CloudLensBaseVisitor<Void> {
       ctx.ast = ctx.block().ast;
     } else if (ctx.stream() != null) {
       ctx.ast = ctx.stream().ast;
+    } else if (ctx.after() != null) {
+      ctx.ast = ctx.after().ast;
     } else if (ctx.match() != null) {
       ctx.ast = ctx.match().ast;
     } else if (ctx.group() != null) {
@@ -170,6 +172,14 @@ public class ASTBuilder extends CloudLensBaseVisitor<Void> {
         : new ASTArgs(null, null);
     ctx.ast = new ASTStream(fileName, line, args, ctx.conditions().ast,
         ctx.body().ast);
+    return null;
+  }
+
+  @Override
+  public Void visitAfter(CloudLensParser.AfterContext ctx) {
+    visitChildren(ctx);
+    final int line = ctx.getStart().getLine();
+    ctx.ast = new ASTAfter(fileName, line, ctx.args().ast, ctx.body().ast);
     return null;
   }
 

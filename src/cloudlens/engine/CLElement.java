@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cloudlens.block.BlockObject;
+import cloudlens.parser.ASTAfter;
 import cloudlens.parser.ASTBlock;
 import cloudlens.parser.ASTElement;
 import cloudlens.parser.ASTGroup;
@@ -59,6 +60,14 @@ public class CLElement {
       return (ASTStream) ast;
     } catch (final Exception e) {
       throw new CLException("Cannot cast to ASTStream.");
+    }
+  }
+
+  public ASTAfter after() {
+    try {
+      return (ASTAfter) ast;
+    } catch (final Exception e) {
+      throw new CLException("Cannot cast to ASTAfter.");
     }
   }
 
