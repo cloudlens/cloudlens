@@ -1,7 +1,7 @@
-match upon (entry.hi){
+match upon entry.hi (
     "(?<french>Bonjour)"
-}
+)
 
-stream {
+process {
     print(entry.french)
 }

@@ -11,19 +11,17 @@ top
 	;
 
 script returns [List<ASTElement> ast]
-	: (element)*
+	: (element (';')*) *
 	;
 
 element returns [ASTElement ast]
 	: declaration
 	| block 
-	| stream
+	| process
 	| after
-	| group  
 	| match  
 	| lens
 	| run
-	| restart
 	| source
 	;
 	
@@ -36,22 +34,17 @@ block returns [ASTBlock ast]
 	: body
 	;
 		
-stream returns [ASTStream ast]
-	: 'process' args conditions body
+process returns [ASTProcess ast]
+	: 'process' ('(' IDENT ')')? conditions body
 	| conditions body	
 	;
 
 after returns [ASTAfter ast]
-	: 'after' args body	
+	: 'after' body	
 	;
 
-
-group returns [ASTGroup ast]
-	: 'group' args upon output rules 
-	;
-	
 match returns [ASTMatch ast]
-	: 'match' args upon rules 
+	: 'match' ('upon' IDENT)? rules 
 	;
 	
 lens returns [ASTLens ast]
@@ -61,11 +54,7 @@ lens returns [ASTLens ast]
 run returns [ASTRun ast]
 	: IDENT argList
 	;
-	
-restart returns [ASTRestart ast]
-	: 'restart' IDENT
-	;
-	
+		
 source returns [ASTSource ast]
 	: 'source' '(' url (',' format (',' path)? )? ')'
 	;
@@ -78,18 +67,7 @@ varDecl returns [ASTDeclaration ast]
 funDecl returns [ASTDeclaration ast]
 	: IDENT identList body
 	;
-	
-	
-args returns [ASTArgs ast]
-	: '(' IDENT domain ')' 
-	| 
-	;
 		
-domain returns [String ast]
-	: 'in' IDENT 
-	|
-	;
-	
 conditions returns [Collection<Collection<String>> ast]
 	: 'when' '(' clause (',' clause)* ')'
 	| 
@@ -98,24 +76,14 @@ conditions returns [Collection<Collection<String>> ast]
 clause returns [Collection<String> ast]
 	: (IDENT)+
 	;
-	
-upon returns [String ast]
-	: 'upon' '('? IDENT ')'? 
-	|
-	;
-	
-output returns [String ast]
-	: 'in' '('? IDENT ')'? 
-	|
-	;
-	
+		
 body returns [String ast]
 	: '{' ( ~('{' | '}') | body | STRING )* '}' 
 	;
 
 rules returns [List<String> ast]
-	: '{' regex (';' regex)* ';'? '}'
-	| '{' '}'
+	: '(' regex (';' regex)* ';'? ')'
+	| '(' ')'
 	;
 	
 regex returns [String ast]

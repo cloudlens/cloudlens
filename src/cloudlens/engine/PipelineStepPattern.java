@@ -1,7 +1,7 @@
 /*
  *  This file is part of the CloudLens project.
  *
- * Copyright 2015-2016 IBM Corporation
+ * Copyright omitted for blind review
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,43 +34,28 @@ public class PipelineStepPattern extends PipelineStep {
   private final String file;
   private final int line;
   private final String upon;
-  // a pattern to find property names in a regex
-  private static Pattern property = Pattern
-      .compile("\\(\\?<([a-zA-Z][a-zA-Z0-9]*)>");
+  // a pattern to find properties in a regex
+  private static Pattern property = Pattern.compile(
+      "\\(\\?<([a-zA-Z][a-zA-Z0-9]*)(?:\\s*:\\s*([a-zA-Z][a-zA-Z0-9]*(?:\\[[^\\]]+\\])?))?>");
 
-  // a pattern to find type declarations
-  private static Pattern type = Pattern.compile(
-      "([a-zA-Z][a-zA-Z0-9]*) *: *([a-zA-Z][a-zA-Z0-9]*(?:\\[[^\\]]+\\])?)");
-
-  private Pattern pattern = null; // the actual pattern
   private Set<Map.Entry<String, String>> env = null; // property:type
   private Matcher matcher;
 
-  public PipelineStepPattern(String file, int line, String regex, String name,
-      String upon) {
+  public PipelineStepPattern(String file, int line, String regex, String upon) {
     this.file = file;
     this.line = line;
     this.upon = upon;
 
     try {
-      final int pos = regex.indexOf("#");
-      pattern = Pattern.compile(pos == -1 ? regex : regex.substring(0, pos));
       final Map<String, String> map = new Hashtable<>();
       final Matcher m = property.matcher(regex);
       // find declared properties
       while (m.find()) {
         // default to Object type
-        map.put(m.group(1), "Object");
-      }
-      if (pos >= 0) {
-        // add declared property type when found
-        final Matcher t = type.matcher(regex.substring(pos + 1));
-        while (t.find()) {
-          map.put(t.group(1), t.group(2));
-        }
+        map.put(m.group(1), m.group(2) == null ? "Object" : m.group(2));
       }
       env = map.entrySet();
-      matcher = pattern.matcher("");
+      matcher = Pattern.compile(m.replaceAll("(?<$1>")).matcher("");
     } catch (final PatternSyntaxException e) {
       throw new CLException("Regular Expression Syntax Error: " + file
           + " line " + line + "\n" + e.getMessage());
@@ -81,12 +66,11 @@ public class PipelineStepPattern extends PipelineStep {
   @Override
   public BlockObject step(BlockObject properties) {
     final String[] varpath = this.upon.split("\\.");
-    final String text = properties.getpath(varpath, 1).asString();
-
-    if (text == null) {
+    if (!properties.checkpath(varpath, 1)) {
       executed = false;
       return properties;
     }
+    final String text = properties.getpath(varpath, 1).asString();
     try {
       final Matcher m = matcher.reset(text);
       if (!m.find()) {

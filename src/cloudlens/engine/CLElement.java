@@ -1,7 +1,7 @@
 /*
  *  This file is part of the CloudLens project.
  *
- * Copyright 2015-2016 IBM Corporation
+ * Copyright omitted for blind review
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,13 +25,11 @@ import cloudlens.block.BlockObject;
 import cloudlens.parser.ASTAfter;
 import cloudlens.parser.ASTBlock;
 import cloudlens.parser.ASTElement;
-import cloudlens.parser.ASTGroup;
 import cloudlens.parser.ASTLens;
 import cloudlens.parser.ASTMatch;
-import cloudlens.parser.ASTRestart;
+import cloudlens.parser.ASTProcess;
 import cloudlens.parser.ASTRun;
 import cloudlens.parser.ASTSource;
-import cloudlens.parser.ASTStream;
 
 public class CLElement {
   public ASTElement ast;
@@ -55,11 +53,11 @@ public class CLElement {
     }
   }
 
-  public ASTStream stream() {
+  public ASTProcess process() {
     try {
-      return (ASTStream) ast;
+      return (ASTProcess) ast;
     } catch (final Exception e) {
-      throw new CLException("Cannot cast to ASTStream.");
+      throw new CLException("Cannot cast to ASTProcess.");
     }
   }
 
@@ -79,14 +77,6 @@ public class CLElement {
     }
   }
 
-  public ASTGroup group() {
-    try {
-      return (ASTGroup) ast;
-    } catch (final Exception e) {
-      throw new CLException("Cannot cast to ASTGroup.");
-    }
-  }
-
   public ASTLens lens() {
     try {
       return (ASTLens) ast;
@@ -100,14 +90,6 @@ public class CLElement {
       return (ASTRun) ast;
     } catch (final Exception e) {
       throw new CLException("Cannot cast to ASTRun.");
-    }
-  }
-
-  public ASTRestart restart() {
-    try {
-      return (ASTRestart) ast;
-    } catch (final Exception e) {
-      throw new CLException("Cannot cast to ASTRestart.");
     }
   }
 

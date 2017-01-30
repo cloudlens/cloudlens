@@ -12,8 +12,9 @@ public class PipelineStageAfter extends PipelineStage {
   public CLElement after;
 
   public PipelineStageAfter(CLElement e) {
-    super(e.after().stream, new ArrayList<>());
+    super(new ArrayList<>());
     this.after = e;
+    this.effect = true;
   }
 
   @Override
@@ -26,6 +27,7 @@ public class PipelineStageAfter extends PipelineStage {
         }
         if (localIt == null) {
           final BlockObject current = after.closure.call();
+          executed = true;
           if (engine.isArray(current)) {
             localIt = new CLIterator(engine, current, false);
           } else {

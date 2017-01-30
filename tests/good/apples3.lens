@@ -1,15 +1,15 @@
 var totalApples = 0;
 
-match{
-    "(?<numApples>\d+) apples# numApples:int";
+match (
+    "(?<numApples: int>\d+) apples";
     "^(?<name>[^ ]*)"
-}
+)
 
-stream{
+process{
     print(entry.name);
 }
 
-stream{
+process{
     totalApples += entry.numApples;
     if(totalApples > 10)
         print("We picked too many apples: " + totalApples);

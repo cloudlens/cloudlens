@@ -1,9 +1,9 @@
-stream {
+process {
     print(entry.message)
 }
 
 source ("local:tests/good/source.log2")
 
-stream {
+process {
     print(entry.message)
 }

@@ -2,12 +2,12 @@
     state = undefined;
 }
 
-match{
+match (
     "My color is (?<color>[^ ]+)!"
-}
+)
 
 
-stream{
+process{
     if ((entry.color=="blue" && state != "green" && state != undefined) ||
     	(entry.color=="red" && state != "blue") ||
     	(entry.color=="green" && state != "red")) {

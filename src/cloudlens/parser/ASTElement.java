@@ -1,7 +1,7 @@
 /*
  *  This file is part of the CloudLens project.
  *
- * Copyright 2015-2016 IBM Corporation
+ * Copyright omitted for blind review
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ package cloudlens.parser;
 
 public abstract class ASTElement {
   public enum ASTType {
-    Declaration, Block, Stream, After, Match, Group, Run, Lens, Restart, Source
+    Declaration, Block, Process, After, Match, Run, Lens, Source
   }
 
   public String file;

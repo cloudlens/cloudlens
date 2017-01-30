@@ -1,7 +1,7 @@
 /*
  *  This file is part of the CloudLens project.
  *
- * Copyright 2015-2016 IBM Corporation
+ * Copyright omitted for blind review
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,31 +19,34 @@
 package cloudlens.engine;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 public class RuntimePipeline implements RuntimeElement {
 
-  public final Pipeline pipeline;
+  public final List<PipelineStage> pipeline;
+  private boolean effect = false;
 
-  public RuntimePipeline(Pipeline pipeline) {
+  public RuntimePipeline(List<PipelineStage> pipeline) {
     this.pipeline = pipeline;
   }
 
   @Override
   public CLIterator run(CL cl, CLIterator clIt, boolean withHistory) {
-    for (final Pipeline child : pipeline.children) {
+    for (final PipelineStage child : pipeline) {
       clIt = child.apply(cl.engine, clIt);
     }
     clIt.withHistory = withHistory;
 
     clIt.iterate();
 
-    for (final Pipeline child : pipeline.children) {
+    for (final PipelineStage child : pipeline) {
       cl.executed |= child.executed;
+      effect |= child.effect;
     }
 
     cl.outWriter.flush();
 
-    if (pipeline.effect && cl.out instanceof ByteArrayOutputStream
+    if (effect && cl.out instanceof ByteArrayOutputStream
         && ((ByteArrayOutputStream) cl.out).size() == 0) {
       cl.errWriter.println("Pipeline has no output.");
     }

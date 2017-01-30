@@ -2,11 +2,11 @@
     totalApples = 0;
 }
 
-match{
+match (
     "(?<numApples>\d+) apples"
-}
+)
 
-stream{
+process{
     totalApples += parseInt(entry.numApples);
     if(totalApples > 10) print("We picked too many apples!");
 }

@@ -1,5 +1,5 @@
 lens messageLens(ident){
-     stream (entry) when (entry) {
+     process (entry) when (entry) {
      	    print(ident + entry.message);
      }
 }
@@ -13,14 +13,14 @@ lens messageLens(ident){
 
 { messageLens("LENS " + ">>", array); }
 
-stream (entry) {
+process (entry) {
        var ident = "STREAM >> ";
        print (ident + entry.message);
 }
 
 { messageLens("LENS " + ">>");}
 
-stream (entry) {
+process (entry) {
        var ident = "STREAM >> ";
        print (ident + entry.message);
 }

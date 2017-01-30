@@ -1,2 +1,2 @@
-Error: tests/bad/undefined_property.lens, block starting line 12:
+Error: tests/bad/undefined_property.lens, block starting line 8:
 <eval>:8 TypeError: Cannot read property "blue" from undefined

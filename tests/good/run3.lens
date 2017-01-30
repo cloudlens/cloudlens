@@ -1,25 +1,25 @@
 lens f(x, log){
-    stream {
+    process {
     	print(x + entry.message)
     }
     {print("middle")}
-    stream {
+    process {
      	print(x + entry.message)
     }
 }
 
-stream {
+process {
     print("0 " + entry.message)
 }
 
 f ("1 ")
 
-stream {
+process {
     print("2 " + entry.message)
 }
 
 f ("3 ")
 
-stream {
+process {
     print("4 " + entry.message)
 }

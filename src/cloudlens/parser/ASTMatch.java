@@ -1,7 +1,7 @@
 /*
  *  This file is part of the CloudLens project.
  *
- * Copyright 2015-2016 IBM Corporation
+ * Copyright omitted for blind review
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,28 +26,23 @@ import java.util.regex.Pattern;
 import cloudlens.engine.CLException;
 import cloudlens.engine.PipelineStep;
 
-public class ASTMatch extends ASTStreamingSection {
+public class ASTMatch extends ASTElement {
   public String upon;
   public List<String> rules;
   public List<PipelineStep> matchers;
 
-  public ASTMatch(String file, int line, ASTArgs args, String upon,
-      List<String> rules) {
-    super(file, line, ASTType.Match, args);
+  public ASTMatch(String file, int line, List<String> rules, String upon) {
+    super(file, line, ASTType.Match);
     this.matchers = new ArrayList<>();
     this.rules = rules;
 
-    if (upon == null) {
-      this.upon = this.var + ".message";
-    } else {
-      // Check that the upon option start with the entry name
-      final Pattern varuponpat = Pattern.compile(this.var + "\\.\\w+");
-      final Matcher varuponmatch = varuponpat.matcher(upon);
-      if (!varuponmatch.find()) {
-        throw new CLException(
-            "Invalid path: " + upon + ". Maybe you forgot the entry name.");
-      }
-      this.upon = upon;
+    // Check that the upon option start with the entry name
+    final Pattern varuponpat = Pattern.compile("entry\\.\\w+");
+    final Matcher varuponmatch = varuponpat.matcher(upon);
+    if (!varuponmatch.find()) {
+      throw new CLException(
+          "Invalid path: " + upon + ". Maybe you forgot the entry name.");
     }
+    this.upon = upon;
   }
 }

@@ -1,7 +1,7 @@
 /*
  *  This file is part of the CloudLens project.
  *
- * Copyright 2015-2016 IBM Corporation
+ * Copyright omitted for blind review
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,13 @@ import java.util.List;
 import cloudlens.block.BlockEngine;
 import cloudlens.block.BlockObject;
 
-public abstract class PipelineStage extends Pipeline {
+public abstract class PipelineStage {
   public final List<PipelineStep> processors;
   private CLIterator localIt = new CLIterator();
+  public boolean executed = false;
+  public boolean effect = false;
 
-  public PipelineStage(String stream, List<PipelineStep> processors) {
-    super(stream);
+  public PipelineStage(List<PipelineStep> processors) {
     this.processors = processors;
   }
 
@@ -46,7 +47,6 @@ public abstract class PipelineStage extends Pipeline {
     return current;
   }
 
-  @Override
   public CLIterator apply(BlockEngine engine, CLIterator clIt) {
     final CLIterator res = new CLIterator(engine, new Iterator<BlockObject>() {
       @Override

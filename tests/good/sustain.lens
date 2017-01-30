@@ -8,15 +8,15 @@ function sustain (entry) {
     return res;
 }
 
-match {
+match (
     "^(?<name>[^ ]*) picked";
     "(?<n>\d+)"
-}
+)
 
-stream when (entry.message){
+process when (entry.message){
     sustain(entry);
 }
 
-stream {
+process {
     print(last.name + " picked " + entry.n + " fruits");
 }

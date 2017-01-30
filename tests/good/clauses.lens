@@ -1,7 +1,7 @@
-stream (entry) when (entry.a entry.b, entry.c entry.d.foo) {
+process (entry) when (entry.a entry.b, entry.c entry.d.foo) {
     print(entry.message)
 }
 
-stream {
+process {
     print(entry.d.foo)
 }

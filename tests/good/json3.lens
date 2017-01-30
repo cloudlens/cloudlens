@@ -1,3 +1,3 @@
-stream when (entry.foo entry.bar){
+process when (entry.foo entry.bar){
     print(entry.message)
 }

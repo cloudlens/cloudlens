@@ -22,7 +22,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ TestsGood.class, TestsBad.class, TestsZeppelin.class })
+@Suite.SuiteClasses({ TestsGood.class, TestsBad.class })
 
 public class CloudLensTests {
 }

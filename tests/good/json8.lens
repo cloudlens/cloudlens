@@ -1,7 +1,7 @@
-stream  {
+process  {
     match(entry, "hi", /(Bonjour)/,  "french")
 }
 
-stream {
+process {
     print(entry.french)
 }

@@ -1,7 +1,7 @@
 /*
  *  This file is part of the CloudLens project.
  *
- * Copyright 2015-2016 IBM Corporation
+ * Copyright omitted for blind review
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -136,20 +136,16 @@ public class ASTBuilder extends CloudLensBaseVisitor<Void> {
       ctx.ast = ctx.declaration().ast;
     } else if (ctx.block() != null) {
       ctx.ast = ctx.block().ast;
-    } else if (ctx.stream() != null) {
-      ctx.ast = ctx.stream().ast;
+    } else if (ctx.process() != null) {
+      ctx.ast = ctx.process().ast;
     } else if (ctx.after() != null) {
       ctx.ast = ctx.after().ast;
     } else if (ctx.match() != null) {
       ctx.ast = ctx.match().ast;
-    } else if (ctx.group() != null) {
-      ctx.ast = ctx.group().ast;
     } else if (ctx.lens() != null) {
       ctx.ast = ctx.lens().ast;
     } else if (ctx.run() != null) {
       ctx.ast = ctx.run().ast;
-    } else if (ctx.restart() != null) {
-      ctx.ast = ctx.restart().ast;
     } else if (ctx.source() != null) {
       ctx.ast = ctx.source().ast;
     }
@@ -165,12 +161,11 @@ public class ASTBuilder extends CloudLensBaseVisitor<Void> {
   }
 
   @Override
-  public Void visitStream(CloudLensParser.StreamContext ctx) {
+  public Void visitProcess(CloudLensParser.ProcessContext ctx) {
     visitChildren(ctx);
     final int line = ctx.getStart().getLine();
-    final ASTArgs args = (ctx.args() != null) ? ctx.args().ast
-        : new ASTArgs(null, null);
-    ctx.ast = new ASTStream(fileName, line, args, ctx.conditions().ast,
+    final String var = (ctx.IDENT() != null) ? ctx.IDENT().getText() : "entry";
+    ctx.ast = new ASTProcess(fileName, line, var, ctx.conditions().ast,
         ctx.body().ast);
     return null;
   }
@@ -179,16 +174,7 @@ public class ASTBuilder extends CloudLensBaseVisitor<Void> {
   public Void visitAfter(CloudLensParser.AfterContext ctx) {
     visitChildren(ctx);
     final int line = ctx.getStart().getLine();
-    ctx.ast = new ASTAfter(fileName, line, ctx.args().ast, ctx.body().ast);
-    return null;
-  }
-
-  @Override
-  public Void visitGroup(CloudLensParser.GroupContext ctx) {
-    visitChildren(ctx);
-    final int line = ctx.getStart().getLine();
-    ctx.ast = new ASTGroup(fileName, line, ctx.args().ast, ctx.upon().ast,
-        ctx.output().ast, ctx.rules().ast);
+    ctx.ast = new ASTAfter(fileName, line, ctx.body().ast);
     return null;
   }
 
@@ -196,8 +182,9 @@ public class ASTBuilder extends CloudLensBaseVisitor<Void> {
   public Void visitMatch(CloudLensParser.MatchContext ctx) {
     visitChildren(ctx);
     final int line = ctx.getStart().getLine();
-    ctx.ast = new ASTMatch(fileName, line, ctx.args().ast, ctx.upon().ast,
-        ctx.rules().ast);
+    final String upon = (ctx.IDENT() != null) ? ctx.IDENT().getText()
+        : "entry.message";
+    ctx.ast = new ASTMatch(fileName, line, ctx.rules().ast, upon);
     return null;
   }
 
@@ -218,14 +205,6 @@ public class ASTBuilder extends CloudLensBaseVisitor<Void> {
     final int line = ctx.getStart().getLine();
     final String args = ctx.argList().ast;
     ctx.ast = new ASTRun(fileName, line, ctx.IDENT().getText(), args);
-    return null;
-  }
-
-  @Override
-  public Void visitRestart(CloudLensParser.RestartContext ctx) {
-    visitChildren(ctx);
-    final int line = ctx.getStart().getLine();
-    ctx.ast = new ASTRestart(fileName, line, ctx.IDENT().getText());
     return null;
   }
 
@@ -278,28 +257,6 @@ public class ASTBuilder extends CloudLensBaseVisitor<Void> {
   }
 
   @Override
-  public Void visitArgs(CloudLensParser.ArgsContext ctx) {
-    if (ctx.IDENT() == null) {
-      ctx.ast = new ASTArgs(null, null);
-    } else {
-      visitChildren(ctx);
-      ctx.ast = new ASTArgs(ctx.IDENT().getText(), ctx.domain().ast);
-    }
-    return null;
-
-  }
-
-  @Override
-  public Void visitDomain(CloudLensParser.DomainContext ctx) {
-    if (ctx.IDENT() == null) {
-      ctx.ast = null;
-    } else {
-      ctx.ast = ctx.IDENT().getText();
-    }
-    return null;
-  }
-
-  @Override
   public Void visitConditions(CloudLensParser.ConditionsContext ctx) {
     ctx.ast = new ArrayList<>();
     if (ctx.clause() != null) {
@@ -316,22 +273,6 @@ public class ASTBuilder extends CloudLensBaseVisitor<Void> {
     ctx.ast = new ArrayList<>();
     for (final TerminalNode cond : ctx.IDENT()) {
       ctx.ast.add(cond.getText());
-    }
-    return null;
-  }
-
-  @Override
-  public Void visitUpon(CloudLensParser.UponContext ctx) {
-    if (ctx.IDENT() != null) {
-      ctx.ast = ctx.IDENT().getText();
-    }
-    return null;
-  }
-
-  @Override
-  public Void visitOutput(CloudLensParser.OutputContext ctx) {
-    if (ctx.IDENT() != null) {
-      ctx.ast = ctx.IDENT().getText();
     }
     return null;
   }

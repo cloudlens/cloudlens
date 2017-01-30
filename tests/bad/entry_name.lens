@@ -1,4 +1,4 @@
-stream(entry) when  (e.foo){
+process(entry) when  (e.foo){
     print(e.foo)
 }
 

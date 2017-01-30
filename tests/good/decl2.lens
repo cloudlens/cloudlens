@@ -1,4 +1,4 @@
-stream  {
+process  {
     print(1)
 }
 
@@ -6,7 +6,7 @@ stream  {
 
 lens f(x, log){
     var y = 10; 
-    stream  {
+    process  {
      	print(x + y)
      }
 }
@@ -15,7 +15,7 @@ var g = f;
 
 var y = 40;
 
-stream  {
+process  {
     print(y + 2)
 }
 
@@ -23,6 +23,6 @@ g(3)
 
 {print("coucou")}
 
-stream  {
+process  {
     print(1)
 }

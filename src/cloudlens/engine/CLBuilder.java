@@ -1,7 +1,7 @@
 /*
  *  This file is part of the CloudLens project.
  *
- * Copyright 2015-2016 IBM Corporation
+ * Copyright omitted for blind review
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,7 @@
 package cloudlens.engine;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -30,25 +28,20 @@ import cloudlens.parser.ASTAfter;
 import cloudlens.parser.ASTBlock;
 import cloudlens.parser.ASTDeclaration;
 import cloudlens.parser.ASTElement;
-import cloudlens.parser.ASTGroup;
 import cloudlens.parser.ASTLens;
 import cloudlens.parser.ASTMatch;
+import cloudlens.parser.ASTProcess;
 import cloudlens.parser.ASTRun;
-import cloudlens.parser.ASTStream;
 
 public class CLBuilder {
   private static boolean blockGuard = false;
   private static List<CLElement> nextList = new ArrayList<>();
-  private static Pipeline pipeline = new Pipeline("log");
-  private static String lastStream = "log";
-  private static Set<String> streams = new HashSet<>();
+  private static List<PipelineStage> pipeline = new ArrayList<>();
 
   public static void reset() {
     blockGuard = false;
     nextList = new ArrayList<>();
-    pipeline = new Pipeline("log");
-    lastStream = "log";
-    streams = new HashSet<>();
+    pipeline = new ArrayList<>();
   }
 
   private static String header(List<ASTElement> astElements) {
@@ -99,9 +92,9 @@ public class CLBuilder {
         code += " function () {" + blockSec.script + "; return [";
         closing = "]}" + closing;
         break;
-      case Stream:
-        final ASTStream streamSec = (ASTStream) e;
-        code += streamSec.script + ",";
+      case Process:
+        final ASTProcess processSec = (ASTProcess) e;
+        code += processSec.script + ",";
         break;
       case After:
         final ASTAfter afterSec = (ASTAfter) e;
@@ -112,12 +105,6 @@ public class CLBuilder {
         code += "function (){ return [" + StringUtils.join(match.rules, ',')
             + "]},";
         break;
-      case Group:
-        final ASTGroup group = (ASTGroup) e;
-        code += "function (){return [" + StringUtils.join(group.rules, ',')
-            + "]},";
-        break;
-      case Restart:
       case Source:
         code += "{},";
         break;
@@ -162,12 +149,10 @@ public class CLBuilder {
         element.children.add(dbl);
         spawn(dbl, astTail);
         break;
-      case Stream:
+      case Process:
       case After:
       case Run:
-      case Group:
       case Match:
-      case Restart:
       case Source:
         final CLElement srgmrs = new CLElement(e);
         element.children.add(srgmrs);
@@ -187,11 +172,9 @@ public class CLBuilder {
         res.add(child);
         blockGuard = true;
         break;
-      case Stream:
+      case Process:
       case After:
       case Match:
-      case Group:
-      case Restart:
       case Source:
         res.add(child);
         break;
@@ -225,11 +208,9 @@ public class CLBuilder {
       final BlockObject closure = closures.get(i);
       switch (child.ast.type) {
       case Block:
-      case Stream:
+      case Process:
       case After:
-      case Group:
       case Match:
-      case Restart:
       case Source:
         final CLElement bsgmrs = child;
         bsgmrs.closure = closure;
@@ -259,19 +240,10 @@ public class CLBuilder {
     }
   }
 
-  private static void checkStream(CL cl, String file, int line, String stream) {
-    if (!lastStream.startsWith(stream) && streams.contains(stream)) {
-      cl.errWriter.println("Warning: " + file + " line " + line
-          + ", implicit restart of stream " + stream + "!");
-    }
-    streams.add(stream);
-    lastStream = stream;
-  }
-
   private static void addRuntimePipeline(List<RuntimeElement> runtimeElements) {
     if (!pipeline.isEmpty()) {
       runtimeElements.add(new RuntimePipeline(pipeline));
-      pipeline = new Pipeline("log");
+      pipeline = new ArrayList<>();
     }
   }
 
@@ -285,47 +257,24 @@ public class CLBuilder {
       case Block:
         addRuntimePipeline(runtimes);
         final RuntimeBlock block = new RuntimeBlock(child);
-        lastStream = "top";
         runtimes.add(block);
         break;
       case Source:
         addRuntimePipeline(runtimes);
         final RuntimeSource source = new RuntimeSource(child);
-        lastStream = "log";
         runtimes.add(source);
         break;
-      case Stream:
-        final PipelineStage stream = new PipelineStageStream(child);
-        final ASTStream s = child.stream();
-        checkStream(cl, s.file, s.line, s.stream);
-        pipeline.add(stream);
+      case Process:
+        final PipelineStage process = new PipelineStageProcess(child);
+        pipeline.add(process);
         break;
       case After:
         final PipelineStage after = new PipelineStageAfter(child);
-        final ASTAfter a = child.after();
-        checkStream(cl, a.file, a.line, a.stream);
         pipeline.add(after);
-        break;
-      case Group:
-        final PipelineStage group = new PipelineStageGroup(child);
-        final ASTGroup g = child.group();
-        checkStream(cl, g.file, g.line, g.stream);
-        pipeline.add(group);
         break;
       case Match:
         final PipelineStage match = new PipelineStageMatch(child);
-        final ASTMatch m = child.match();
-        checkStream(cl, m.file, m.line, m.stream);
         pipeline.add(match);
-        break;
-      case Restart:
-        final String restartStream = child.restart().stream;
-        lastStream = child.restart().stream;
-        if (restartStream.equals("log")) {
-          addRuntimePipeline(runtimes);
-        } else {
-          pipeline.addNode(child.restart().stream);
-        }
         break;
       case Declaration:
       case Lens:

@@ -2,15 +2,15 @@
     print("init")
 }
 
-match(entry) upon (entry.hi){
+match(entry) upon (entry.hi)(
     "(?<french>Bonjour)"
-}
+)
 
-stream{
+process{
     print(entry.message)
 }
 
-stream(entry) when (entry.foo.a.b){
+process(entry) when (entry.foo.a.b){
     entry.foo.a.c = "4012";
     print(entry.foo.a.b)
 }
@@ -19,11 +19,11 @@ stream(entry) when (entry.foo.a.b){
     print("reset")
 }
 
-stream{
+process{
     print(entry.message)
 }
 
-stream when (entry.french){
+process when (entry.french){
     print("'" + entry.message + "' is in french.")
 }
 

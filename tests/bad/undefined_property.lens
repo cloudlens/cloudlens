@@ -1,15 +1,11 @@
 var state = "green";
 
-group {
-    "^.*$"
-}
-
-match (e in log.array) {
+match (
     "My color is (?<color>[^ ]+)!"
-}
+)
 
 
-stream (e in log.array) {
+process (e) {
     if ((e.color=="blue" && state != "green" && state != undefined) ||
         (e.color=="red" && state != "blue") ||
         (e.color=="green" && state != "red")) {

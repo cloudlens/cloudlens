@@ -1,3 +1,3 @@
-stream when (foo bar) {
+process when (foo bar) {
     print(e.hi)
 }

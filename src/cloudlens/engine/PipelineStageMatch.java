@@ -1,7 +1,7 @@
 /*
  *  This file is part of the CloudLens project.
  *
- * Copyright 2015-2016 IBM Corporation
+ * Copyright omitted for blind review
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,14 +33,14 @@ public class PipelineStageMatch extends PipelineStage {
       final String regex = jsStrings.get(i).asString();
       final ASTMatch m = e.match();
       final PipelineStepPattern step = new PipelineStepPattern(m.file,
-          m.line + i, regex, m.var, m.upon);
+          m.line + i, regex, m.upon);
       matchers.add(step);
     }
     return matchers;
   }
 
   public PipelineStageMatch(CLElement e) {
-    super(e.match().stream, getMatchers(e));
+    super(getMatchers(e));
   }
 
 }
