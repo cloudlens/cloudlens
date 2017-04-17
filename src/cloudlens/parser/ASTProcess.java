@@ -38,7 +38,20 @@ public class ASTProcess extends ASTElement {
       Collection<Collection<String>> conditions, String script) {
     super(file, line, ASTType.Process);
 
-    this.var = var;
+    if (var != null) {
+      this.var = var;
+    } else if (conditions.isEmpty()) {
+      this.var = "entry";
+    } else {
+      // isolate the first condition
+      final String cond0 = conditions.iterator().next().iterator().next();
+      final String[] varcond = cond0.split("\\.");
+      if (varcond[0] != null) {
+        this.var = varcond[0];
+      } else {
+        throw new CLException("Cannot find the name of the entry.");
+      }
+    }
 
     Pattern varpat;
     Matcher varmatch;
@@ -76,8 +89,8 @@ public class ASTProcess extends ASTElement {
 
     this.clauses = conditions;
 
-    final String processScript = " function (" + var + "){" + script
-        + "; return " + var + "}";
+    final String processScript = " function (" + this.var + "){" + script
+        + "; return " + this.var + "}";
 
     try {
       JSEngine.checkSyntax(file, line, processScript);

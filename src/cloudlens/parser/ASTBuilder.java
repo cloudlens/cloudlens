@@ -164,7 +164,7 @@ public class ASTBuilder extends CloudLensBaseVisitor<Void> {
   public Void visitProcess(CloudLensParser.ProcessContext ctx) {
     visitChildren(ctx);
     final int line = ctx.getStart().getLine();
-    final String var = (ctx.IDENT() != null) ? ctx.IDENT().getText() : "entry";
+    final String var = (ctx.IDENT() != null) ? ctx.IDENT().getText() : null;
     ctx.ast = new ASTProcess(fileName, line, var, ctx.conditions().ast,
         ctx.body().ast);
     return null;
